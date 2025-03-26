@@ -20,7 +20,7 @@ card reader, like a Square or MyPOS device, and can link to a Bluetooth ESC/POS 
 + Product details can be downloaded from a remote server
 + Business details can be entered manually, or downloaded from a remote server
 
-This app is supplied as a [B4X Project](bpos.zip), and can be built using [B4A](https://www.b4x.com/b4a.html) and [B4J] (https://www.b4x.com/b4j.html) from 
+This app is supplied as a [B4X Project](bpos.zip), and can be built using [B4A](https://www.b4x.com/b4a.html) and [B4J](https://www.b4x.com/b4j.html) from 
 Anywhere Software.
 
 
