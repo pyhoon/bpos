@@ -37,7 +37,7 @@ Print functions have been designed and tested with a [Munbyn IMP001](https://pos
 similar printers, but cheap ESC/POS devices are fickle things, and trying to do something as basic as printing currency
 symbols can tie you up in knots.
 
-The original B4A version has been forked from the original author by pyhoon as B4XPages app which has enabled a desktop version.
+The original B4A version has been forked by pyhoon from the original author as B4XPages app which has enabled a desktop version using B4J.
 
 It has been tested on Windows 11 and connected to Bluetooth thermal receipt printer through virtual COM port. 
 
