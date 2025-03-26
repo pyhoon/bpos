@@ -1,6 +1,6 @@
-# B-POS Android point of sale app
+# B-POS Android/Desktop point of sale app
 
-B-POS is a fairly simple point of sale app that's designed to run on a tablet and enable the sale of merchandise at events.
+B-POS is a fairly simple point of sale app that's designed to run on a tablet/pc and enable the sale of merchandise at events.
 We're a member supported club, and this is an important source of revenue for us. It's intended to be used with a standalone
 card reader, like a Square or MyPOS device, and can link to a Bluetooth ESC/POS printer to produce receipts.
 
@@ -20,7 +20,7 @@ card reader, like a Square or MyPOS device, and can link to a Bluetooth ESC/POS 
 + Product details can be downloaded from a remote server
 + Business details can be entered manually, or downloaded from a remote server
 
-This app is supplied as a [B4X Project](bpos.zip), and can be built using [B4A](https://www.b4x.com/b4a.html) from 
+This app is supplied as a [B4X Project](bpos.zip), and can be built using [B4A](https://www.b4x.com/b4a.html) and [B4J] (https://www.b4x.com/b4j.html) from 
 Anywhere Software.
 
 
@@ -36,6 +36,13 @@ as the sole task on the device.
 Print functions have been designed and tested with a [Munbyn IMP001](https://pos.munbyn.com/munbyn-imp001-series-mini-bluetooth-pos-receipt-printer/) Bluetooth ESC/POS printer. In theory, they should work with other
 similar printers, but cheap ESC/POS devices are fickle things, and trying to do something as basic as printing currency
 symbols can tie you up in knots.
+
+The original B4A version has been forked from the original author by pyhoon as B4XPages app which has enabled a desktop version.
+
+It has been tested on Windows 11 and connected to Bluetooth thermal receipt printer through virtual COM port. 
+
+Many work has been done to manage the differences between the Android version and the Desktop version such as screen adjustment, database connection and Long press replaced by mouse right click. 
+
 
 ## Getting started
 By default, the app will generate a dummy set of ten products, with random prices, so that you can see how it works without
