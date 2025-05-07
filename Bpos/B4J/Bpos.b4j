@@ -43,6 +43,7 @@ FileGroup9=Default Group
 Group=Default Group
 Library1=b4xpages
 Library10=xui views
+Library11=jshell
 Library2=jcore
 Library3=jfx
 Library4=jokhttputils2
@@ -55,9 +56,9 @@ Module1=|relative|..\B4XMainPage
 Module2=|relative|..\EscPosPrinter
 Module3=|relative|..\SettingsPage
 NumberOfFiles=20
-NumberOfLibraries=10
+NumberOfLibraries=11
 NumberOfModules=3
-Version=10
+Version=10.2
 @EndOfDesignText@
 ' Product: BPOS (Point of Sales)
 ' Version: 2024.10.001

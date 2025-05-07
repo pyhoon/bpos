@@ -700,15 +700,35 @@ Private Sub handlePrinter As ResumableSub
 		Dim options As List
 		options.Initialize
 		' Aeric: Temporary hardcoded
+		'Dim ports As List = Printer1.GetComPorts
+		'For Each port As String In ports
+		'	Log(port)
+		'Next
+		
+		Dim pd As B4XProgressDialog
+		pd.Initialize(Root)
+		pd.ShowDialog("Please wait...")
+		Wait For (ListSerialPortsWithNames) Complete (ports As List)
+		For Each m As Map In ports
+			Log("Port: " & m.Get("Port") & ", Name: " & m.Get("FriendlyName"))
+			Dim PrinterName As String = m.Get("FriendlyName")
+			Dim PrinterPort As String = m.Get("Port")
+			DevicesMap.Put(PrinterName, PrinterPort)
+			options.Add(PrinterName)
+		Next
+		'options.Sort(True)
+		pd.Hide
+		
 		' TODO: Allow user to set printer name and com port and save to KVS
-		Dim PrinterPort As String = "COM9"
-		Dim PrinterName As String = $"MP583 (${PrinterPort})"$
-		DevicesMap.Put(PrinterName, PrinterPort)
-		options.Add(PrinterName)
+		'Dim PrinterPort As String = "COM9"
+		'Dim PrinterName As String = $"MP583 (${PrinterPort})"$
+		'DevicesMap.Put(PrinterName, PrinterPort)
+		'options.Add(PrinterName)
 		dialog.Title = "Select a device"
 		Dim lst As B4XListTemplate
 		lst.Initialize
 		lst.Options = options
+		lst.mBase.Width = 480dip
 		Wait For(dialog.ShowTemplate(lst, "OK", "", "Cancel")) Complete (Result As Int)
 		If Result = xui.DialogResponse_Positive Then
 			comport = DevicesMap.Get(lst.SelectedItem)
@@ -736,6 +756,35 @@ Private Sub handlePrinter As ResumableSub
 	Return True
 End Sub
 #End If
+
+Sub ListSerialPortsWithNames As ResumableSub
+	Dim result As List
+	result.Initialize
+
+	Dim shl As Shell
+	shl.Initialize("shl", "wmic", Array("path", "Win32_SerialPort", "get", "DeviceID,Name"))
+	shl.Run(-1)
+	Wait For shl_ProcessCompleted (Success As Boolean, ExitCode As Int, StdOut As String, StdErr As String)
+
+	If Success Then
+		Dim lines() As String = Regex.Split("\r?\n", StdOut.Trim)
+		For i = 1 To lines.Length - 1
+			Dim line As String = lines(i).Trim
+			If line.Length > 0 Then
+				' Collapse multiple spaces into a single tab for reliable splitting
+				line = Regex.Replace(" {2,}", line, Chr(9))
+				Dim parts() As String = Regex.Split(Chr(9), line)
+				If parts.Length = 2 Then
+					Dim port As String = parts(0).Trim
+					Dim friendly As String = parts(1).Trim
+					result.Add(CreateMap("Port": port, "FriendlyName": friendly))
+				End If
+			End If
+		Next
+	End If
+	'result.Sort(True)
+	Return result
+End Sub
 
 Private Sub Button_Confirm_Click
 	If CLV_Sale.Size > 0 Then

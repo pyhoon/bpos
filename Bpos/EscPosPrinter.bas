@@ -189,7 +189,7 @@ End Sub
 #If B4J
 Public Sub Connect
 	Try
-		Log("Connecting to COM port " & ComPort)
+		Log("Connecting to port " & ComPort)
 		Serial1.Open(ComPort)
 		Astream.InitializePrefix(Serial1.GetInputStream, True, Serial1.GetOutputStream, "astream")
 		Connected = True
