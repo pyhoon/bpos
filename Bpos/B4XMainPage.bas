@@ -373,15 +373,19 @@ Sub PrintReceipt (saleid As Int)
 		refund = True
 		saleid = -1 * saleid
 	End If
+	#If B4A
 	Wait For (handlePrinter) Complete (Result As Boolean)
 	Log(Result)
+	#End If
 
 	If Printer1.IsConnected = False Then
 		Return
 	End If
 	
 	Printer1.Reset
-	Printer1.codepage = 71 ' western europe
+	'Printer1.codepage = 71 ' western europe
+	Printer1.codepage = 16 ' Windows 1252
+	
    	#If B4A or B4i
    	Dim bmp As Bitmap
 	If File.Exists(File.DirInternal, "logo.jpg") Then
@@ -412,6 +416,9 @@ Sub PrintReceipt (saleid As Int)
 	Printer1.PrintImage(myimage)
 	Printer1.leftmargin = 75
 	Printer1.WriteString(Printer1.BOLD & shopname & Printer1.NOBOLD & CRLF & CRLF)
+	
+	' Test print cent symbol
+	Printer1.WriteString("10" & Chr(162) & "- 20¢" & CRLF & CRLF)
 		
 	Printer1.LeftMargin = 25
 	If refund Then
