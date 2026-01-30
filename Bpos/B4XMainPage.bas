@@ -14,7 +14,9 @@ Version=9.85
 Sub Class_Globals
 	Private Root As B4XView
 	Private xui As XUI
+	#If B4J
 	Private DevicesMap As Map
+	#End If
 	Private dialog As B4XDialog
 	
 	Private Button_Cancel As B4XView
@@ -762,7 +764,6 @@ Private Sub handlePrinter As ResumableSub
 	End If
 	Return True
 End Sub
-#End If
 
 Sub ListSerialPortsWithNames As ResumableSub
 	Dim result As List
@@ -792,6 +793,7 @@ Sub ListSerialPortsWithNames As ResumableSub
 	'result.Sort(True)
 	Return result
 End Sub
+#End If
 
 Private Sub Button_Confirm_Click
 	If CLV_Sale.Size > 0 Then
