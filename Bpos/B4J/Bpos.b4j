@@ -58,7 +58,7 @@ Module3=|relative|..\SettingsPage
 NumberOfFiles=20
 NumberOfLibraries=11
 NumberOfModules=3
-Version=10.3
+Version=10.5
 @EndOfDesignText@
 ' Product: BPOS (Point of Sales)
 ' Version: 2024.10.001

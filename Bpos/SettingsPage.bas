@@ -331,7 +331,6 @@ Private Sub Button_ImportBusiness_LongClick
 			set_currency.Text = ""
 			set_symbol.Text = ""
 			Check_Showstock.Checked = False
-			
 		End If
 	End If
 End Sub
@@ -519,7 +518,6 @@ Private Sub downloadBusiness (url As String )
 	End If
 	
 	Dim j As HttpJob
-	
 	j.Initialize("",Me)
 	j.Download(targeturl)
 	
@@ -568,7 +566,6 @@ Private Sub downloadBusiness (url As String )
 			End If
 		Loop
 		Reader.Close
-		
 		
 		Dim job As HttpJob
 		job.Initialize("", Me)
@@ -740,7 +737,6 @@ Private Sub processCSV( baseurl As String )
 		#End If
 		xui.MsgboxAsync("Error loading products. Check the CSV file is valid." &CRLF & CRLF & LastException.Message,"Import error")
 	End Try
-	
 End Sub
 
 Private Sub button_Postlog_Click
