@@ -131,7 +131,7 @@ Private Sub B4XPage_Created (Root1 As B4XView)
 	B4XPages.SetTitle(Me, "B-POS Checkout")
 	
 	Settings.Initialize
-	B4XPages.AddPage("Settings",Settings)
+	B4XPages.AddPage("Settings", Settings)
 	Printer1.Initialize(Me, "Printer1")
 End Sub
 
@@ -165,11 +165,9 @@ Private Sub loadData
 		createDummyProducts
 	End If
 	
-
+	Dim prodwidth As Int = CLV_Products.sv.Width - 10dip
 	
-	Dim prodwidth As Int = CLV_Products.sv.Width -10dip
-	
-	Dim pwidth As Int = prodwidth/5 
+	Dim pwidth As Int = prodwidth / 5
 	
 	Dim c As Int = 0
 	
@@ -194,7 +192,6 @@ Private Sub loadData
 		End If
 
 		Log("Adding product " & thisproduct)
-		
 		
 		' individual item panel
 		#If B4J
@@ -254,15 +251,15 @@ Private Sub loadData
 				SKU_Stock.Visible = False
 			End If
 		Else
-				SKU_Stock.Visible = False
+			SKU_Stock.Visible = False
 		End If
-		c = c + 1 
+		c = c + 1
 		
-		If c = 5 Then 
+		If c = 5 Then
 			Log("Adding line to prodcuts")
 			p.Height = 160dip * pwidth / 120
 			CLV_Products.Add(p,CreateMap("product":True))
-			c = 0 
+			c = 0
 			'p.Initialize("")
 			Dim p As B4XView = xui.CreatePanel("")
 		End If
@@ -289,7 +286,7 @@ Private Sub loadData
 	Loop
 	rs.Close
 
-	If v = 1 Then	
+	If v = 1 Then
 		Log("Only one VAT rate found: " & vatrate & "%")
 	Else
 		vatrate = "multi"
@@ -322,11 +319,6 @@ Private Sub B4XPage_Appear
 	End If
 	loadData
 End Sub
-
-'Private Sub B4XPage_CloseRequest As ResumableSub
-'	Log("Close")
-'	Return True
-'End Sub
 
 Sub Printer1_Connected (Success As Boolean)
 	Log("Connected: " & Success)
@@ -375,14 +367,23 @@ Sub PrintReceipt (saleid As Int)
 		refund = True
 		saleid = -1 * saleid
 	End If
+	
 	#If B4A
 	Wait For (handlePrinter) Complete (Result As Boolean)
 	Log(Result)
 	#End If
-
+	
+	#If B4A
 	If Printer1.IsConnected = False Then
+		Log("Printer not connected")
 		Return
 	End If
+	#Else
+	If Printer1.IsInitialized = False Then
+		Log("Printer not initialized")
+		Return
+	End If
+	#End If
 	
 	Printer1.Reset
 	'Printer1.codepage = 71 ' western europe
@@ -419,9 +420,6 @@ Sub PrintReceipt (saleid As Int)
 	Printer1.leftmargin = 75
 	Printer1.WriteString(Printer1.BOLD & shopname & Printer1.NOBOLD & CRLF & CRLF)
 	
-	' Test print cent symbol
-	Printer1.WriteString("10" & Chr(162) & "- 20¢" & CRLF & CRLF)
-		
 	Printer1.LeftMargin = 25
 	If refund Then
 		Printer1.WriteString(Printer1.HIGHWIDE & "Refund " & orderprefix & NumberFormat2(saleid, 4, 0, 0, False) & Printer1.SINGLE & CRLF)
@@ -613,7 +611,6 @@ Private Sub Label_Settings_Click
 	Else
 		B4XPages.ShowPage("settings")
 	End If
-	
 End Sub
 
 #If B4A
@@ -837,7 +834,6 @@ Private Sub Button_Confirm_Click
 							skus.ExecNonQuery2("UPDATE products SET stock = ? WHERE sku = ?",Array As Object(level,item.Get("sku")))
 						End If
 					End If
-					
 					itemcount = itemcount + item.Get("qty")
 				End If
 			Next
@@ -941,7 +937,6 @@ Private Sub SKU_Image_Click
 '				End If
 '			Next
 '		End If
-	
 	
 	Log("Selected " & product.Get("name"))
 	
@@ -1137,7 +1132,6 @@ Private Sub processRefund (returns As Boolean)
 				If level > -1 Then
 					skus.ExecNonQuery2("UPDATE products SET stock = ? WHERE sku = ?",Array As Object(level+item.Get("qty"),item.Get("sku")))
 				End If
-						
 			End If
 			itemcount = itemcount + item.Get("qty")
 		End If
